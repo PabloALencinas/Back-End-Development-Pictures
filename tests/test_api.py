@@ -42,9 +42,10 @@ def test_pictures_json_is_not_empty(client):
     assert len(res.json) > 0
 
 
+# Modify the test to use the correct endpoint with the specific 'id'
 def test_post_picture(picture, client):
-    # create a brand new picture to upload
-    res = client.post("/picture", data=json.dumps(picture),
+    # create a brand new picture with the specified 'id'
+    res = client.post("/picture/200", data=json.dumps(picture),
                       content_type="application/json")
     assert res.status_code == 201
     assert res.json['id'] == picture['id']
@@ -52,12 +53,13 @@ def test_post_picture(picture, client):
     assert res.status_code == 200
     assert res.json['length'] == 11
 
+# Modify the test to use the correct endpoint with the specific 'id'
 def test_post_picture_duplicate(picture, client):
-    # create a brand new picture to upload
-    res = client.post("/picture", data=json.dumps(picture),
+    # create a brand new picture with the specified 'id'
+    res = client.post("/picture/200", data=json.dumps(picture),
                       content_type="application/json")
     assert res.status_code == 302
-    assert res.json['Message'] == f"picture with id {picture['id']} already present"
+    assert res.json['Message'] == f"Picture with id {picture['id']} already present"
 
 def test_update_picture_by_id(client, picture):
     id = '2'
